@@ -1,0 +1,12 @@
+[[local|localrc]]
+HOST_IP=192.168.1.102
+#FIXED_RANGE=10.4.128.0/20
+#FLOATING_RANGE=192.168.42.128/25
+OFFLINE=True
+LOGFILE=/opt/stack/logs/stack.sh.log
+ADMIN_PASSWORD=devstack
+DATABASE_PASSWORD=devstack
+RABBIT_PASSWORD=devstack
+SERVICE_PASSWORD=devstack
+enable_plugin heat https://opendev.org/openstack/heat stable/victoria
+disable_service tempest

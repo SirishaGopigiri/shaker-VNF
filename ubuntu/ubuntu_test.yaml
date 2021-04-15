@@ -1,0 +1,26 @@
+title: OpenStack VNF test
+
+description:
+  In this scenario Shaker launches pairs of instances. Instances are
+  connected to one of 2 tenant networks, which plugged into the router VNF.
+  The traffic goes from one network to the other (L3 east-west).
+
+deployment:
+  template: ubuntu_test.hot
+  accommodation: [pair, best_effort]
+
+execution:
+  progression: quadratic
+  tests:
+  -
+    title: Download
+    class: flent
+    method: tcp_download
+  -
+    title: Upload
+    class: flent
+    method: tcp_upload
+  -
+    title: Bi-directional
+    class: flent
+    method: tcp_bidirectional
