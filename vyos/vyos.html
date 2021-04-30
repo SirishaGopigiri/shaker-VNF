@@ -1,0 +1,739 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head profile="http://gmpg.org/xfn/11">
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+  <title>Shaker | The distributed data-plane testing tool for OpenStack</title>
+
+  <!-- LIBS -->
+
+  <script type="application/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script type="application/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+  <script type="application/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.js"></script>
+  <script type="text/javascript"
+          src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.min.js"></script>
+  <script type="application/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.2.7/js-yaml.min.js"></script>
+  <script type="application/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+  <script type="application/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.js"></script>
+
+  <!-- STYLES -->
+
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.4/simplex/bootstrap.min.css">
+  <link rel=stylesheet type=text/css
+        href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+  <link rel=stylesheet type=text/css
+        href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.css">
+  <link rel='stylesheet' type='text/css'
+        href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic&subset=latin,cyrillic'>
+
+  <script type="application/javascript">
+    var report = {"scenarios": {"OpenStack VNF test": {"title": "OpenStack VNF test", "description": "In this scenario Shaker launches pairs of instances. Instances are connected to one of 2 tenant networks, which plugged into the router VNF. The traffic goes from one network to the other (L3 east-west).", "deployment": {"template": "vyos_test.hot", "accommodation": ["pair", "best_effort"]}, "execution": {"progression": "quadratic", "tests": [{"title": "Download", "class": "flent", "method": "tcp_download"}, {"title": "Upload", "class": "flent", "method": "tcp_upload"}, {"title": "Bi-directional", "class": "flent", "method": "tcp_bidirectional"}]}, "file_name": "vyos_test.yaml"}}, "records": {"dd85de3c-5bad-4e15-a058-9f7f08893bbb": {"status": "ok", "stderr": "", "start": 1618731212.9417, "finish": 1618731291.890417, "command": {"type": "script", "data": "zcat `flent -H 40.0.0.25 -l 60 -s 1 tcp_download 2>&1 | grep \"file written\" | grep -Po \"\\./\\S+gz\"`"}, "meta": [["time", "s"], ["ping_icmp", "ms"], ["tcp_download", "Mbits/s"]], "samples": [[0.0, 1.41, null], [1.0, 1.8989116268492003, null], [2.0, 0.930513734389814, null], [3.0, 1.7461601679908125, null], [4.0, 1.6606235649874541, null], [5.0, 0.9279358811284057, null], [6.0, 0.350933195312634, 12851.45], [7.0, 1.1020310951850392, 12309.482033748627], [8.0, 0.2107054789339412, 8644.577388913845], [9.0, 0.6716759590610464, 11646.097949752808], [10.0, 0.4385366329199767, 11675.266328964233], [11.0, 0.4250720240316815, 11019.320830154418], [12.0, 0.3164412310902209, 10874.958266949689], [13.0, 0.48648369121189905, 11871.328775656222], [14.0, 0.6413262562585657, 11528.37267090559], [15.0, 0.2741834237788458, 11642.682615115642], [16.0, 1.0500146700233144, 10321.862363946439], [17.0, 1.8365314004421651, 11372.983348305224], [18.0, 1.2173926382049616, 9795.372665753364], [19.0, 0.4980528574278157, 11632.590330412388], [20.0, 0.7765176178172257, 10912.463658189774], [21.0, 0.4008335731755507, 11588.897862293721], [22.0, 0.3956388420869468, 10480.859949667454], [23.0, 0.5981550543576191, 10158.940749845504], [24.0, 0.5629528427086625, 9667.773557896613], [25.0, 0.3133373437239083, 11008.739517173766], [26.0, 0.47631252459724516, 9764.220286552905], [27.0, 0.4335738344780431, 10109.561784842013], [28.0, 1.1310072488623366, 9456.421693513394], [29.0, 1.640592723828652, 10012.030625759497], [30.0, 0.8396959995215085, 10276.65311984667], [31.0, 0.5370169380387028, 9549.145501875877], [32.0, 0.6505945831037953, 9834.011331095697], [33.0, 0.6213379701742744, 9636.441922528744], [34.0, 0.5507881188764296, 9279.051001875401], [35.0, 0.5652722905552636, 10026.990092566015], [36.0, 0.7260948562579747, 9351.386822247507], [37.0, 0.7828315880558488, 9396.732490851879], [38.0, 1.1426979958296954, 7733.742663280964], [39.0, 1.3092379916069672, 9481.494372606277], [40.0, 1.267512014651963, 9545.99324386882], [41.0, 1.2315926907994874, 9871.615327767215], [42.0, 0.8057008964698857, 9625.703657264708], [43.0, 1.0019676593141575, 9672.720521062532], [44.0, 0.8279269014488817, 10073.912316122054], [45.0, 0.937866595533877, 9668.393702668971], [46.0, 0.453401555049266, 9954.295797929763], [47.0, 0.5218345549445884, 9000.493010721206], [48.0, 0.8148660328204947, 8388.793769712449], [49.0, 0.3638452158616891, 9272.797212557793], [50.0, 0.39096065330864727, 9050.835897240639], [51.0, 0.7383639392526096, 9434.318535537719], [52.0, 0.6785749405488785, 10500.146708540917], [53.0, 0.471687622444454, 9802.475170764923], [54.0, 0.6096165319174499, 9635.737604846954], [55.0, 0.5544958590426498, 9919.740406452402], [56.0, 1.101443047053811, 9599.381747332021], [57.0, 1.969363092756157, 9352.208800201417], [58.0, 1.672830849011233, 10390.282831816674], [59.0, 0.3244674514044982, 9405.483930425646], [60.0, 0.8045371957931655, 9295.61167966463], [61.0, 0.6639794078828261, 10275.092530415059], [62.0, 1.8604234613726578, 9871.626717262268], [63.0, 0.3312035701163, 7846.578578004836], [64.0, 1.0479188887891286, 10314.012611820697], [65.0, 0.8784178496311942, 10304.286269494462], [66.0, 0.8252092609772801, 10291.47], [67.0, 1.2997895516170117, null], [68.0, 1.2250831923595793, null], [69.0, 1.5182004151593196, null]], "schedule": 1618731212.9304628, "id": "dd85de3c-5bad-4e15-a058-9f7f08893bbb", "agent": "test_primary_0", "node": "harrypotter", "concurrency": 1, "test": "Download", "executor": "flent", "type": "agent", "scenario": "OpenStack VNF test", "stats": {"ping_icmp": {"max": 1.969363092756157, "min": 0.2107054789339412, "avg": 0.8534442337745372, "unit": "ms"}, "tcp_download": {"max": 12851.45, "min": 7733.742663280964, "avg": 10086.49037955057, "unit": "Mbits/s"}}}, "488f5831-f79f-476d-8de3-d35ae34061d4": {"status": "ok", "stderr": "", "start": 1618731312.6710658, "finish": 1618731388.017434, "command": {"type": "script", "data": "zcat `flent -H 40.0.0.25 -l 60 -s 1 tcp_upload 2>&1 | grep \"file written\" | grep -Po \"\\./\\S+gz\"`"}, "meta": [["time", "s"], ["ping_icmp", "ms"], ["tcp_upload", "Mbits/s"]], "samples": [[0.0, 1.05, null], [1.0, 1.9480154739789222, null], [2.0, 1.491460848596407, null], [3.0, 1.5297958793227515, null], [4.0, 1.4009193402432172, null], [5.0, 1.0331024222825902, null], [6.0, 0.6120721718710338, 9635.25], [7.0, 0.2169564850232848, 10487.60582704544], [8.0, 0.7999532837204757, 10218.377170066833], [9.0, 0.3023577346392925, 10348.985229513646], [10.0, 0.8083755419154578, 8636.203982253075], [11.0, 0.2675905731328858, 9915.54749463558], [12.0, 0.19783541463966592, 9758.005474214553], [13.0, 1.852823983249711, 10122.37374159813], [14.0, 0.5059968765030576, 9762.995597028732], [15.0, 1.3631030628438785, 9470.983497128485], [16.0, 0.8728203923749003, 9448.479281663895], [17.0, 0.7912141987144984, 9359.502740559577], [18.0, 0.3479725454070171, 9171.569287898541], [19.0, 0.5110020200346478, 9558.096306760312], [20.0, 0.48821862841440977, 9276.749657552244], [21.0, 0.38389783027600377, 7772.032027767543], [22.0, 0.7792119775167641, 9616.607161540986], [23.0, 1.254551288374635, 9456.700505828856], [24.0, 0.6490683911286421, 9294.071737461089], [25.0, 0.8053898143702727, 8634.351357250214], [26.0, 0.8586659233663928, 9068.04562070531], [27.0, 1.4546113509323222, 8789.528066005707], [28.0, 0.8782948814003964, 8827.916097698211], [29.0, 0.676852343122139, 8398.993474373818], [30.0, 0.5104395896914997, 8739.037307682038], [31.0, 0.23744390830951698, 8537.273275599478], [32.0, 0.42456836291156697, 7571.28657798767], [33.0, 0.43396656073132184, 9272.281063256263], [34.0, 0.7484368581603791, 7770.484340896606], [35.0, 0.9389497969770094, 8775.618453736306], [36.0, 0.47018881427980286, 8041.564982137679], [37.0, 0.28859137773657845, 7935.90686097145], [38.0, 0.4473681894669264, 7927.732435073852], [39.0, 0.519762099510138, 7590.99208521843], [40.0, 0.36631955202679994, 7622.2242400789255], [41.0, 0.4540786283609895, 7859.736404981613], [42.0, 1.0510944449641086, 9150.290794415474], [43.0, 1.1080801039278794, 8886.462888970374], [44.0, 0.7626172677435437, 8699.13841755867], [45.0, 0.9721565322704492, 8191.597076888084], [46.0, 1.134801329122817, 8522.641579499246], [47.0, 0.8483849390049683, 8550.199099788666], [48.0, 0.7125746190003812, 8681.588744869232], [49.0, 0.5127761749753919, 7533.198442311287], [50.0, 0.48390199854847515, 8595.720800024199], [51.0, 0.21050826638900155, 7542.60940208435], [52.0, 0.21776727518656608, 9104.077271709442], [53.0, 0.3589596471868916, 8340.875384120942], [54.0, 0.7257785893715576, 8832.028500623705], [55.0, 0.4741211585651261, 8848.22906756401], [56.0, 1.3692378034487096, 8927.20824306488], [57.0, 0.58332201449102, 8475.011984710693], [58.0, 0.7564369366642796, 7877.012247743606], [59.0, 0.860025303089558, 7698.248746967315], [60.0, 0.9266895475540218, 8867.450705900192], [61.0, 0.4527114556267534, 8344.883529129029], [62.0, 2.7598250485288127, 7748.914379053116], [63.0, 0.7519657947572601, 8165.910425653457], [64.0, 0.21544049630882472, 9012.687638463975], [65.0, 0.6777086709681023, 8849.40132376598], [66.0, 1.1178490929058889, 8846.34], [67.0, 1.5668968463560746, null], [68.0, 1.520446482531386, null], [69.0, 1.430987075733267, null]], "schedule": 1618731312.659766, "id": "488f5831-f79f-476d-8de3-d35ae34061d4", "agent": "test_primary_0", "node": "harrypotter", "concurrency": 1, "test": "Upload", "executor": "flent", "type": "agent", "scenario": "OpenStack VNF test", "stats": {"ping_icmp": {"max": 2.7598250485288127, "min": 0.19783541463966592, "avg": 0.80764727615399, "unit": "ms"}, "tcp_upload": {"max": 10487.60582704544, "min": 7533.198442311287, "avg": 8769.915345230345, "unit": "Mbits/s"}}}, "a51d3133-3212-47dd-9805-8d0ce3d3b3d9": {"status": "ok", "stderr": "", "start": 1618731408.7930272, "finish": 1618731484.2912517, "command": {"type": "script", "data": "zcat `flent -H 40.0.0.25 -l 60 -s 1 tcp_bidirectional 2>&1 | grep \"file written\" | grep -Po \"\\./\\S+gz\"`"}, "meta": [["time", "s"], ["ping_icmp", "ms"], ["tcp_download", "Mbits/s"], ["tcp_upload", "Mbits/s"]], "samples": [[0.0, 0.874, null, null], [1.0, 0.8652309068962922, null, null], [2.0, 1.3258146392545527, null, null], [3.0, 1.4068295420876462, null, null], [4.0, 1.2208975149350967, null, null], [5.0, 0.5099064894962938, null, null], [6.0, 0.7605686700516656, 6122.92, 5359.19], [7.0, 2.68513217427479, 6022.474589616432, 5175.540083446503], [8.0, 1.3989866769701915, 5725.83601064682, 5412.370987110138], [9.0, 0.2503292015356122, 6599.482226048458, 4738.999725894928], [10.0, 0.8101934474909757, 6332.832794475556, 5197.3856014633175], [11.0, 1.1717815602513024, 5468.487782325965, 5550.457690067291], [12.0, 0.7562996030823528, 6421.673288006782, 5247.14679567337], [13.0, 0.7003846129308019, 5209.956838932199, 4949.15619184494], [14.0, 0.8239771171821643, 5740.101587982178, 4998.562773017883], [15.0, 2.5915932269128135, 4121.37389228344, 5207.8750603485105], [16.0, 1.409354696856845, 4542.84927267313, 5142.270870685577], [17.0, 0.32129317685057435, 6277.930879249572, 4915.329106235505], [18.0, 1.095687715817853, 5331.021529358833, 4867.231342830658], [19.0, 1.6516924782472442, 5411.881577072143, 4833.650034598088], [20.0, 0.6182172992699162, 5707.490415802002, 4289.773219461441], [21.0, 2.7926681303900436, 5226.08985923061, 4377.576488204475], [22.0, 0.8830843204410659, 5997.954607331753, 5018.492915103436], [23.0, 0.3326955832622971, 5379.067658813, 3750.94161755085], [24.0, 0.329361265910129, 5896.588569723884, 4605.840250518322], [25.0, 0.2844296342316191, 5388.441562825563, 4684.876015934746], [26.0, 0.8513890813851069, 5283.837426018203, 4548.30445602213], [27.0, 0.49489069678612607, 5742.042416123847, 4446.01207320094], [28.0, 0.8391557806990118, 5028.467209100723, 4872.834554216862], [29.0, 0.9072020579861105, 5683.245294136141, 4465.988905320168], [30.0, 1.3028952629643666, 5986.693822951317, 4331.941497883797], [31.0, 0.45607787333776306, 5182.48682217598, 3988.0061063742637], [32.0, 0.3668579441697026, 4165.870272130653, 3036.474893728854], [33.0, 0.2486729889988858, 5275.09489440918, 4858.735121616069], [34.0, 2.2518777433478094, 5229.646312995024, 4511.2454286866405], [35.0, 1.4423621562032838, 5286.378855512138, 4645.3571379351615], [36.0, 0.7190881887618139, 4943.733068146706, 4378.117844893933], [37.0, 2.070399156908577, 4680.311453239918, 4280.421422770756], [38.0, 1.4110406246225413, 5361.775001940728, 4754.814669356346], [39.0, 0.6777349315610262, 5471.493385429742, 4400.108640799523], [40.0, 1.0197340127899104, 5083.604690842277, 4829.701526694298], [41.0, 0.7430563253167017, 5398.274754633681, 4256.378630638123], [42.0, 2.997645073927752, 4273.62064317986, 4843.184597826004], [43.0, 1.5236102732258705, 4577.205350146648, 4373.615459386795], [44.0, 0.9583022254218359, 5387.51704428196, 4203.578399581909], [45.0, 0.6556570342221631, 5261.8075410849315, 4190.4502491140365], [46.0, 0.718120599328234, 5014.355530343056, 4225.180463080406], [47.0, 0.45100467517036524, 4637.371525774499, 4099.986116349228], [48.0, 0.7921183041358619, 4971.8112331581115, 4747.460844261646], [49.0, 2.0158925498357174, 5204.226544143514, 4455.92983445032], [50.0, 1.8981341646516157, 5380.53442248106, 4541.466906750202], [51.0, 1.2260754520940107, 4687.58294018507, 4295.749986839294], [52.0, 1.2480938498218173, 5390.297501604557, 4508.537717382907], [53.0, 1.1622910719662178, 4444.46515807796, 3806.4277467131615], [54.0, 0.8958916037261726, 4948.7589075875285, 4216.131388628483], [55.0, 1.1116523620877603, 4641.657797693365, 4152.091058235335], [56.0, 2.3613990469660706, 5359.617239542036, 4365.81236123085], [57.0, 1.350349050246107, 4912.9335085451985, 5144.397309188843], [58.0, 0.9869290253529457, 5275.973447675705, 4276.529081563949], [59.0, 1.4642827972143804, 5660.235314741134, 4068.2946330356594], [60.0, 4.175703847919946, 3450.657385625839, 3479.302033127085], [61.0, 5.81727973866795, 4606.587233439197, 4513.25713943415], [62.0, 3.475417705958959, 5138.422940597534, 4362.401846102619], [63.0, 2.653793349233111, 4290.531617331505, 4440.104902098179], [64.0, 3.4916619742704107, 4576.857247051863, 4451.372110383285], [65.0, 2.398210607200625, 4396.5579770415, 4300.367520715206], [66.0, 1.4324399327972661, 4392.62, 4297.11], [67.0, 0.9925104182273304, null, null], [68.0, 1.0267874209325647, null, null], [69.0, 1.4033857858296162, null, null]], "schedule": 1618731408.7818696, "id": "a51d3133-3212-47dd-9805-8d0ce3d3b3d9", "agent": "test_primary_0", "node": "harrypotter", "concurrency": 1, "test": "Bi-directional", "executor": "flent", "type": "agent", "scenario": "OpenStack VNF test", "stats": {"ping_icmp": {"max": 5.81727973866795, "min": 0.2486729889988858, "avg": 1.347964063584308, "unit": "ms"}, "tcp_download": {"max": 6599.482226048458, "min": 3450.657385625839, "avg": 5206.715027434724, "unit": "Mbits/s"}, "tcp_upload": {"max": 5550.457690067291, "min": 3036.474893728854, "avg": 4545.669662059138, "unit": "Mbits/s"}}}, "7678806e-b358-47f5-a460-ab1ef23dc914": {"stats": {"ping_icmp": {"unit": "ms", "avg": 0.8534442337745372, "max": 1.969363092756157, "min": 0.2107054789339412}, "tcp_download": {"unit": "Mbits/s", "avg": 10086.49037955057, "max": 12851.45, "min": 7733.742663280964}}, "node_chart": [["x", "harrypotter"], ["Avg ping_icmp, ms", 0.8534442337745372], ["Max ping_icmp, ms", 1.969363092756157], ["Min ping_icmp, ms", 0.2107054789339412], ["Avg tcp_download, Mbits/s", 10086.49037955057], ["Max tcp_download, Mbits/s", 12851.45], ["Min tcp_download, Mbits/s", 7733.742663280964]], "id": "7678806e-b358-47f5-a460-ab1ef23dc914", "scenario": "OpenStack VNF test", "test": "Download", "concurrency": 1, "type": "concurrency"}, "fa0db8f6-f5e2-4054-a1ab-27d6564d86da": {"chart": [["concurrency", 1], ["ping_icmp", 0.8534442337745372], ["tcp_download", 10086.49037955057]], "meta": [["concurrency", ""], ["ping_icmp", "ms"], ["tcp_download", "Mbits/s"]], "id": "fa0db8f6-f5e2-4054-a1ab-27d6564d86da", "scenario": "OpenStack VNF test", "test": "Download", "type": "test"}, "ed670ae7-43d8-4e01-8f29-689fcff2b3f9": {"stats": {"ping_icmp": {"unit": "ms", "avg": 0.80764727615399, "max": 2.7598250485288127, "min": 0.19783541463966592}, "tcp_upload": {"unit": "Mbits/s", "avg": 8769.915345230345, "max": 10487.60582704544, "min": 7533.198442311287}}, "node_chart": [["x", "harrypotter"], ["Avg ping_icmp, ms", 0.80764727615399], ["Max ping_icmp, ms", 2.7598250485288127], ["Min ping_icmp, ms", 0.19783541463966592], ["Avg tcp_upload, Mbits/s", 8769.915345230345], ["Max tcp_upload, Mbits/s", 10487.60582704544], ["Min tcp_upload, Mbits/s", 7533.198442311287]], "id": "ed670ae7-43d8-4e01-8f29-689fcff2b3f9", "scenario": "OpenStack VNF test", "test": "Upload", "concurrency": 1, "type": "concurrency"}, "33509430-6679-4520-9b8e-125bdb7a8a74": {"chart": [["concurrency", 1], ["ping_icmp", 0.80764727615399], ["tcp_upload", 8769.915345230345]], "meta": [["concurrency", ""], ["ping_icmp", "ms"], ["tcp_upload", "Mbits/s"]], "id": "33509430-6679-4520-9b8e-125bdb7a8a74", "scenario": "OpenStack VNF test", "test": "Upload", "type": "test"}, "86cf9d87-10b4-4ead-89f3-d4fcf8ad2d30": {"stats": {"ping_icmp": {"unit": "ms", "avg": 1.347964063584308, "max": 5.81727973866795, "min": 0.2486729889988858}, "tcp_download": {"unit": "Mbits/s", "avg": 5206.715027434724, "max": 6599.482226048458, "min": 3450.657385625839}, "tcp_upload": {"unit": "Mbits/s", "avg": 4545.669662059138, "max": 5550.457690067291, "min": 3036.474893728854}}, "node_chart": [["x", "harrypotter"], ["Avg ping_icmp, ms", 1.347964063584308], ["Max ping_icmp, ms", 5.81727973866795], ["Min ping_icmp, ms", 0.2486729889988858], ["Avg tcp_download, Mbits/s", 5206.715027434724], ["Max tcp_download, Mbits/s", 6599.482226048458], ["Min tcp_download, Mbits/s", 3450.657385625839], ["Avg tcp_upload, Mbits/s", 4545.669662059138], ["Max tcp_upload, Mbits/s", 5550.457690067291], ["Min tcp_upload, Mbits/s", 3036.474893728854]], "id": "86cf9d87-10b4-4ead-89f3-d4fcf8ad2d30", "scenario": "OpenStack VNF test", "test": "Bi-directional", "concurrency": 1, "type": "concurrency"}, "745c91bd-d642-464c-a95d-403f896bbd6e": {"chart": [["concurrency", 1], ["ping_icmp", 1.347964063584308], ["tcp_download", 5206.715027434724], ["tcp_upload", 4545.669662059138]], "meta": [["concurrency", ""], ["ping_icmp", "ms"], ["tcp_download", "Mbits/s"], ["tcp_upload", "Mbits/s"]], "id": "745c91bd-d642-464c-a95d-403f896bbd6e", "scenario": "OpenStack VNF test", "test": "Bi-directional", "type": "test"}}, "agents": {"test_primary_0": {"id": "test_primary_0", "mode": "primary", "minion_id": "test_minion_0", "node": "harrypotter", "zone": "nova", "availability_zone": "nova:harrypotter", "ip": "30.0.0.25", "minion": {"id": "test_minion_0", "mode": "minion", "primary_id": "test_primary_0", "node": "harrypotter", "zone": "nova", "availability_zone": "nova:harrypotter", "ip": "40.0.0.25"}}, "test_minion_0": {"id": "test_minion_0", "mode": "minion", "primary_id": "test_primary_0", "node": "harrypotter", "zone": "nova", "availability_zone": "nova:harrypotter", "ip": "40.0.0.25", "primary": {"id": "test_primary_0", "mode": "primary", "minion_id": "test_minion_0", "node": "harrypotter", "zone": "nova", "availability_zone": "nova:harrypotter", "ip": "30.0.0.25"}}}, "tests": {"Download": {"title": "Download", "class": "flent", "method": "tcp_download"}, "Upload": {"title": "Upload", "class": "flent", "method": "tcp_upload"}, "Bi-directional": {"title": "Bi-directional", "class": "flent", "method": "tcp_bidirectional"}}, "sla": []};
+  </script>
+
+  <script type="text/javascript">
+    "use strict";
+
+    $(function () {
+
+      var fields = ["scenario", "test", "concurrency", "node", "agent"];
+      var state = {
+        scenario: "",
+        test: "",
+        concurrency: "",
+        node: "",
+        agent: ""
+      };
+      var tablePageSize = 10;
+
+      // compiled templates
+      var scenario_source_template = Handlebars.compile($("#scenario_source_template").html());
+      var test_specification_template = Handlebars.compile($("#test_specification_template").html());
+      var agents_table_template = Handlebars.compile($("#agents_table_template").html());
+      var records_table_template = Handlebars.compile($("#records_table_template").html());
+      var executor_template = Handlebars.compile($("#executor_template").html());
+      var concurrency_summary_template = Handlebars.compile($("#concurrency_summary_template").html());
+      var test_summary_template = Handlebars.compile($("#test_summary_template").html());
+      var sla_table_template = Handlebars.compile($("#sla_table_template").html());
+      var errors_template = Handlebars.compile($("#errors_template").html());
+
+      function concatenate(strings) {
+        // returns strings concatenated via comma (like join() but omits empty strings)
+        var f = false;
+        var result = "";
+        $.each(strings, function (_i, string) {
+          if (string.length > 0) {
+            if (f) result += ", ";
+            result += string;
+            f = true;
+          }
+        });
+        return result;
+      }
+
+      function initSingleSelector(name, values) {
+        var selectorId = "#" + name + "_selector";
+
+        var selector_inst = $(selectorId);
+        selector_inst.empty();
+        selector_inst.append($("<option>", {
+          style: "font-style: italic; text-decoration: underline;",
+          value: "",
+          text: selector_inst.data('placeholder')
+        }));
+
+        $.each(values, function (key, item) {
+          selector_inst.append($('<option>', {
+            value: item, //(key + 1),
+            text: item
+          }));
+        });
+
+        selector_inst.val(state[name]);
+
+        selector_inst.
+            on("change", function (e) {
+              state[name] = this.value;
+
+              // convert state -> url
+              var tokens = [];
+              $.each(fields.sort(), function (i, field) {
+                if (state[field] != "") {
+                  tokens.push(field + "=" + state[field]);
+                }
+              });
+              window.location.href = "#" + tokens.join(":");
+            });
+      }
+
+      function getFieldValues(field, records) {
+        var values_set = {};
+
+        $.each(records, function (j, record) {
+          if (record[field]) {
+            values_set["" + record[field]] = true;
+          }
+        });
+
+        return $.map(values_set, function (_i, value) {
+          return value;
+        }).sort();
+      }
+
+      function updateSelectors() {
+        $.each(fields, function (i, field) {
+          var values = getFieldValues(field, filterRecords(report.records, null, field));
+          console.log(values);
+          initSingleSelector(field, values);
+        });
+      }
+
+      function filterRecords(records, type, except_field) {
+        var res = [];
+        $.each(records, function(_i, record){
+          if (!type || typeof type === 'undefined' || record.type == type) {
+            var flag = true;
+            $.each(state, function (key, value) {
+              if (key != except_field && value) {
+                flag &= record[key] == value;
+              }
+            });
+            if (flag) {
+              res.push(record);
+            }
+          }
+        });
+        return res;
+      }
+
+      function getAgentsByIds(agent_ids) {
+        var agents = [];
+        $.each(agent_ids, function(agent_id){
+          agents.push(report.agents[agent_id]);
+        });
+        return agents;
+      }
+
+      /* Template Rendering Funcs */
+
+      function showScenarioSource(contentArea, scenario) {
+        contentArea.append(scenario_source_template(
+            {data: jsyaml.safeDump(scenario)}));
+      }
+
+      function showTestSpecification(contentArea, test) {
+        contentArea.append(test_specification_template(
+            {data: jsyaml.safeDump(test)}
+        ))
+      }
+
+      function showAgentRecord(contentArea, record) {
+        var chart_id = "chart_" + Math.round(Math.random() * 10000);
+        var ext_options = {
+          command_yaml: jsyaml.safeDump(record["command"]),
+          chart_id: chart_id};
+        if (record["stats"]) {
+          ext_options["stats_yaml"] = jsyaml.safeDump(record["stats"]);
+        }
+        if ((record["start"]) && (record["finish"])) {
+          ext_options["time_info"] = jsyaml.safeDump({
+            "start": new Date(record["start"] * 1000).toISOString(),
+            "finish": new Date(record["finish"] * 1000).toISOString()
+          });
+        }
+        contentArea.append(executor_template(
+            {record: $.extend({}, record, ext_options)}
+        ));
+        if (record["samples"]) {
+          var meta = record["meta"];
+          var axes = [];
+          axes[meta[1][0]] = 'y';
+          var axis = {
+            x: {label: concatenate(meta[0])},
+            y: {label: concatenate(meta[1]), min: 0}
+          };
+          if (meta.length > 2) {
+            axes[meta[2][0]] = 'y2';
+            axis['y2'] = {label: concatenate(meta[2]), min: 0, show: true}
+          }
+
+          var chart = [];
+          $.each(meta, function(_i, meta_item){  // row titles
+            chart.push([meta_item[0]]);
+          });
+          var samples = record["samples"];
+          for (var i=0; i < samples.length; i++) {
+            var point = samples[i];
+            for (var j=0; j < point.length; j++) {
+              chart[j].push(point[j]);
+            }
+          }
+
+          c3.generate({
+            bindto: "#" + chart_id,
+            data: {
+              x: 'time',
+              columns: chart,
+              axes: axes
+            },
+            axis: axis
+          });
+        }
+      }
+
+      function showConcurrencySummary(contentArea, record) {
+        var chart_id = "chart_" + Math.round(Math.random() * 10000);
+        var node_chart_id = "node_chart_" + Math.round(Math.random() * 10000);
+        var ext_options = { chart_id: chart_id, node_chart_id: node_chart_id };
+        if (record["stats"]) {
+          ext_options["stats_yaml"] = jsyaml.safeDump(record["stats"]);
+        }
+        console.log(record);
+        contentArea.append(concurrency_summary_template(
+            {record: $.extend({}, record, ext_options)}
+        ));
+        if (record["node_chart"]) {
+          c3.generate({
+            bindto: "#" + node_chart_id,
+            data: {
+              x: 'x',
+              columns: record["node_chart"],
+              type: 'step',
+              order: null
+            },
+            axis: {
+              x: { type: 'category' }
+            }
+          });
+        }
+      }
+
+      function showTestSummary(contentArea, record) {
+        console.log(record);
+        var chart_id = "chart_" + Math.round(Math.random() * 10000);
+        var ext_options = { chart_id: chart_id };
+        if (record["stats"]) {
+          ext_options["stats_yaml"] = jsyaml.safeDump(record["stats"]);
+        }
+        contentArea.append(test_summary_template(
+            {record: $.extend({}, record, ext_options)}
+        ));
+        if (record["chart"]) {
+          var meta = record["meta"];
+          var axes = [];
+          axes[meta[1][0]] = 'y';
+          var axis = {
+            x: {label: concatenate(meta[0])},
+            y: {label: concatenate(meta[1]), min: 0}
+          };
+          if (meta.length > 2) {
+            axes[meta[2][0]] = 'y2';
+            axis['y2'] = {label: concatenate(meta[2]), min: 0, show: true}
+          }
+
+          c3.generate({
+            bindto: "#" + chart_id,
+            data: {
+              x: 'concurrency',
+              columns: record["chart"],
+              axes: axes
+            },
+            axis: axis
+          });
+        }
+      }
+
+      function showAgentsTable(contentArea, filteredRecords) {
+        var agent_ids = {};
+        $.each(filteredRecords, function(_i, record){
+          if (record.agent) {
+            agent_ids[record.agent] = true;
+          }
+        });
+
+        var agents = getAgentsByIds(agent_ids);
+        if (agents.length == 0) return;
+
+        // add minion agents
+        var minion_agent_ids = {};
+        $.each(agents, function(_i, agent){
+          if (agent.minion_id) {
+            minion_agent_ids[agent.minion_id] = true;
+          }
+        });
+        agents = $.merge(agents, getAgentsByIds(minion_agent_ids));
+
+        contentArea.append(agents_table_template({
+          agents: agents,
+          table_id: "agents_table"
+        }));
+        $("#agents_table").dataTable({
+          "autoWidth": true,
+          "paging": false,
+          "ordering": true,
+          "info": false
+        });
+      }
+
+      function makeURL(record, s) {
+        var extra = {};
+        extra[s] = record[s];
+        return "#" + $.map($.extend({}, state, extra), function (val, index) {
+          return val? (index + "=" + val) : null;
+        }).join(":")
+      }
+
+      function showRecordsTable(contentArea, filteredRecords) {
+        $.each(filteredRecords, function(_i, record) {
+          $.each(fields, function(_j, field){
+            if (record[field]) {
+              record[field + "_url"] = makeURL(record, field);
+            }
+          });
+        });
+
+        contentArea.append(records_table_template({
+          records: filteredRecords,
+          table_id: "records_table"
+        }));
+        $("#records_table").dataTable({
+          autoWidth: true,
+          paging: filteredRecords.length > tablePageSize,
+          ordering: true,
+          info: false,
+          searching: filteredRecords.length > tablePageSize
+        });
+      }
+
+      function showSlaTable(contentArea, records) {
+        if (records.length == 0) return;
+
+        contentArea.append(sla_table_template({
+          records: records,
+          table_id: "sla_table"
+        }));
+        $("#records_table").dataTable({
+          autoWidth: true,
+          paging: records.length > tablePageSize,
+          ordering: true,
+          info: false,
+          searching: records.length > tablePageSize
+        });
+      }
+
+      function showErrors(contentArea, records) {
+        if (records.length == 0) return;
+
+        contentArea.append(errors_template({
+          records: records,
+          table_id: "errors_list"
+        }));
+      }
+
+      /* Update cycle */
+
+      function update() {
+        var filteredRecords = filterRecords(report.records);
+        console.log(filteredRecords);
+        var slaRecords = [];
+        var errorRecords = [];
+        $.each(filterRecords(report.records), function(_i, record) {
+          if (record["sla_info"]) {
+            slaRecords.push(record);
+          }
+          if (record["is_status_error"]) {
+            errorRecords.push(record);
+          }
+        });
+
+        var contentArea = $("#content_area");
+        contentArea.empty();
+
+        updateSelectors();
+
+        showRecordsTable(contentArea, filteredRecords);
+        showSlaTable(contentArea, slaRecords);
+        showErrors(contentArea, errorRecords);
+
+        if (state["scenario"] != "" && state["test"] != "" &&
+                state["concurrency"] != "" &&
+                state["agent"] != "") {
+          showAgentRecord(contentArea, filteredRecords[0]);
+        }
+        if (state["scenario"] != "" && state["test"] != "" &&
+                state["concurrency"] != "" && state["node"] == "" &&
+                state["agent"] == "") {
+          var agg_recs = filterRecords(report.records, "concurrency");
+          if (agg_recs.length > 0) {
+            showConcurrencySummary(contentArea, agg_recs[0]);
+          }
+        }
+        if (state["scenario"] != "" && state["test"] != "" &&
+                state["concurrency"] == "" && state["node"] == "" &&
+                state["agent"] == "") {
+          var test_recs = filterRecords(report.records, "test");
+          if (test_recs.length > 0) {
+            showTestSummary(contentArea, test_recs[0]);
+          }
+        }
+        if (state["test"] != "") {
+          showTestSpecification(contentArea, report.tests[state["test"]]);
+        }
+        if (state["agent"] == "") {
+          showAgentsTable(contentArea, filteredRecords);
+        }
+        if (state["scenario"] != "") {
+          showScenarioSource(contentArea, report.scenarios[state["scenario"]]);
+        }
+      }
+
+      function parseUrlToState() {
+        var hashUrl = window.location.hash.substr(1);
+
+        $.each(hashUrl.split(":"), function (_i, pair) {
+          var kv = pair.split("=");
+          if (kv.length == 2) {
+            state[kv[0]] = decodeURIComponent(kv[1]);
+          }
+        });
+      }
+
+      // entry-point
+      parseUrlToState();
+      console.log(state);
+
+      // change the status of tests that have sla failures
+      // to "fail", only if they were previously marked "ok"
+      $.each(report.sla, function(_i, sla) {
+        if (sla.state == "FAIL" && report.records[sla.record].status == "ok") {
+          report.records[sla.record].status = "fail";
+        }
+      });
+      // pre-process records
+      $.each(report.records, function(_i, record) {
+        if (record.status) {
+          record["is_status_ok"] = record.status == "ok";
+          record["is_status_lost"] = record.status == "lost";
+          record["is_status_interrupted"] = record.status == "interrupted";
+          record["is_status_error"] = record.status == "error";
+          record["is_status_fail"] = record.status == "fail";
+        }
+      });
+
+      // auto-select filters with 1 option
+      $.each(fields, function(_i, field) {
+        var values = getFieldValues(field, report.records);
+        if (values.length == 1) {
+          state[field] = values[0];
+        }
+      });
+
+      update();
+
+      $(window).on('hashchange', function() {
+        parseUrlToState();
+        update()
+      });
+
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+  </script>
+
+  <style type="text/css">
+  </style>
+
+</head>
+
+<body>
+
+<div class="container" id="container">
+  <div class="row text-center">
+    <h1>Shaker | The Report</h1>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-2">
+      <label for="scenario_selector" title="Scenario name">Scenario</label>
+      <select id="scenario_selector" class="form-control" data-placeholder="- Any scenario -"></select>
+    </div>
+    <div class="col-md-2">
+      <label for="test_selector" title="Test name">Test Case</label>
+      <select id="test_selector" class="form-control" data-placeholder="- Any test case -"></select>
+    </div>
+    <div class="col-md-2">
+      <label for="concurrency_selector" title="Concurrency">Concurrency</label>
+      <select id="concurrency_selector" class="form-control" data-placeholder="- Any concurrency -"></select>
+    </div>
+    <div class="col-md-2">
+      <label for="node_selector" title="Host / Compute node">Host</label>
+      <select id="node_selector" class="form-control" data-placeholder="- Any node -"></select>
+    </div>
+    <div class="col-md-2">
+      <label for="agent_selector" title="Agent">Agent</label>
+      <select id="agent_selector" class="form-control" data-placeholder="- Any agent -"></select>
+    </div>
+  </div>
+
+  <div id="content_area" class="row">
+    <!-- Container for the screen content -->
+  </div>
+
+  <div id="footer" class="row">&nbsp;</div>
+</div>
+
+<!-- TEMPLATES --------------------------------------------------------------->
+
+<!-- Scenario File -->
+<script id="scenario_source_template" type="text/x-handlebars-template">
+  <h3>Scenario</h3>
+  <pre>{{ data }}</pre>
+</script>
+
+<!-- Test Specification -->
+<script id="test_specification_template" type="text/x-handlebars-template">
+  <h3>Test Specification</h3>
+  <pre>{{ data }}</pre>
+</script>
+
+<!-- Executor Result -->
+<script id="executor_template" type="text/x-handlebars-template">
+  <h3>Execution Summary</h3>
+  {{#with record}}
+  <div id="{{ chart_id }}"></div>
+  {{#if is_status_ok}}<span class="label label-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>success</span>{{/if}}
+  {{#if is_status_lost}}<span class="label label-danger"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span>lost</span>{{/if}}
+  {{#if is_status_interrupted}}<span class="label label-warning"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span>interrupted</span>{{/if}}
+  {{#if is_status_error}}<span class="label label-danger"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span>error</span>{{/if}}
+  {{#if is_status_fail}}<span class="label label-danger"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span>sla fail</span>{{/if}}
+  {{#if stats_yaml}}
+    <h4>Stats</h4>
+    <pre>{{ stats_yaml }}</pre>
+  {{/if}}
+  {{#if time_info}}
+    <h4>Time Info</h4>
+    <pre>{{ time_info }}</pre>
+  {{/if}}
+  <h4>Command</h4>
+  <pre>{{ command_yaml }}</pre>
+  {{#if stdout}}
+    <h4>Stdout</h4>
+    <pre>{{ stdout }}</pre>
+  {{/if}}
+  {{#if verbose}}
+    <h4>Verbose Info</h4>
+    <pre>{{ verbose }}</pre>
+  {{/if}}
+  {{#if stderr}}
+    <h4>Stderr</h4>
+    <pre>{{ stderr }}</pre>
+  {{/if}}
+  {{/with}}
+</script>
+
+<!-- Concurrency summary -->
+<script id="concurrency_summary_template" type="text/x-handlebars-template">
+  {{#with record}}
+  <div id="{{ chart_id  }}"></div>
+  <h3>Per-node chart</h3>
+  <div id="{{ node_chart_id  }}"></div>
+  <h3>Stats</h3>
+  <pre>{{ stats_yaml }}</pre>
+  {{/with}}
+</script>
+
+<!-- Test summary -->
+<script id="test_summary_template" type="text/x-handlebars-template">
+  {{#with record}}
+  <div id="{{ chart_id   }}"></div>
+  {{#if stats_yaml}}
+    <h3>Stats</h3>
+    <pre>{{ stats_yaml }}</pre>
+  {{/if}}
+  {{/with}}
+</script>
+
+<!-- Records Table -->
+<script id="records_table_template" type="text/x-handlebars-template">
+  <h3>Records</h3>
+  <table class="table table-striped" id="{{ table_id  }}">
+    <thead>
+    <tr>
+      <th>Scenario</th>
+      <th>Test Case</th>
+      <th>Concurrency</th>
+      <th>Host / Compute Node</th>
+      <th>Agent</th>
+      <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#records}}
+    <tr>
+      <td><a href="{{ scenario_url }}">{{ scenario }}</a></td>
+      <td><a href="{{ test_url }}">{{ test }}</a></td>
+      <td><a href="{{ concurrency_url }}">{{ concurrency }}</a></td>
+      <td><a href="{{ node_url }}">{{ node }}</a></td>
+      <td><a href="{{ agent_url }}">{{ agent }}</a></td>
+      <td>
+        {{#if is_status_ok }}
+          <span class="label label-success">
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            success
+          </span>
+        {{/if}}
+        {{#if is_status_lost }}
+          <span class="label label-danger">
+            <span class="glyphicon glyphicon-alert" aria-hidden="true"></span>
+            lost
+          </span>
+        {{/if}}
+        {{#if is_status_interrupted }}
+          <span class="label label-warning">
+            <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+            interrupted
+          </span>
+        {{/if}}
+        {{#if is_status_error }}
+          <span class="label label-danger">
+            <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+            error
+          </span>
+        {{/if}}
+        {{#if is_status_fail }}
+          <span class="label label-danger">
+            <span class="glyphicon glyphicon-alert" aria-hidden="true"></span>
+            sla fail
+          </span>
+        {{/if}}
+      </td>
+    </tr>
+    {{/records}}
+    </tbody>
+  </table>
+</script>
+
+<!-- Agents List -->
+<script id="agents_table_template" type="text/x-handlebars-template">
+  <h3>Agents</h3>
+  <table class="table table-striped" id="{{ table_id }}">
+    <thead>
+    <tr>
+      <th>Agent</th>
+      <th>Mode</th>
+      <th>IP</th>
+      <th>Node</th>
+      <th>AZ</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#agents}}
+    <tr>
+      <td>{{ id }}</td>
+      <td>{{ mode }}</td>
+      <td>{{ ip }}</td>
+      <td>{{ node }}</td>
+      <td>{{ zone }}</td>
+    </tr>
+    {{/agents}}
+    </tbody>
+  </table>
+</script>
+
+<!-- SLA List -->
+<script id="sla_table_template" type="text/x-handlebars-template">
+  <h3>Agents</h3>
+  <table class="table table-striped" id="{{  table_id }}">
+    <thead>
+    <tr>
+      <th>Condition</th>
+      <th>Location</th>
+      <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#records}}
+    <tr>
+      <td>{{ sla }}</td>
+      <td>{{ location }}</td>
+      <td>
+        {{#if is_status_ok }}
+          <span class="text-success">
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            {{ status }}
+          </span>
+        {{else}}
+          <span class="text-danger">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            {{ status }}
+          </span>
+        {{/if}}
+      </td>
+    </tr>
+    {{/records}}
+    </tbody>
+  </table>
+</script>
+
+<!-- Errors -->
+<script id="errors_template" type="text/x-handlebars-template">
+  <h3>Errors</h3>
+  <div class="text-danger">
+    <ul>
+    {{#records}}
+      <li>{{ info }}<br/>{{ stderr }}{{ traceback }}</li>
+    {{/records}}
+    </ul>
+  </div>
+</script>
+
+</body>
+</html>

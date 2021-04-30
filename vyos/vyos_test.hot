@@ -1,0 +1,138 @@
+heat_template_version: 2013-05-23
+
+description:
+  Primary instances and minion instances are connected into different networks. The cloud-init configuration helps connects these instances to VyOS VM.
+
+parameters:
+  net_id:
+    type: string
+    description: Network Id of management server
+    default: "e12265ed-68a0-45c8-8652-fd41b2594f57"
+  image:
+    type: string
+    description: Name of image to use for servers
+  flavor:
+    type: string
+    description: Flavor to use for servers
+  external_net:
+    type: string
+    description: ID or name of external network for which floating IP addresses will be allocated
+  server_endpoint:
+    type: string
+    description: Server endpoint address
+  dns_nameservers:
+    type: comma_delimited_list
+    description: DNS nameservers for the subnets
+  east_private_net:
+    type: string
+    description: NetId of east network
+    default: "4bdc7b4e-e1d9-4a36-9dc6-0dc3260b2313"
+  east_private_subnet:
+    type: string
+    description: SubnetId of east network
+    default: "cfa98799-f769-4965-861e-0eec405bc849"
+  east_ip_address:
+    type: string
+    description: Ipaddress for east network
+    default: "30.0.0.25"
+  west_private_net:
+    type: string
+    description: NetId of west network
+    default: "7f5f0429-7453-49b7-86cf-4f013fddbae4"
+  west_private_subnet:
+    type: string
+    description: SubnetId of west network
+    default: "33736de5-ccd9-4903-b6f0-0b272e66eda3"
+  west_ip_address:
+    type: string
+    description: Ipaddress for west network 
+    default: "40.0.0.25"
+
+resources:
+  server_security_group:
+    type: OS::Neutron::SecurityGroup
+    properties:
+      rules: [
+        {remote_ip_prefix: 0.0.0.0/0,
+        protocol: tcp,
+        port_range_min: 1,
+        port_range_max: 65535},
+        {remote_ip_prefix: 0.0.0.0/0,
+        protocol: udp,
+        port_range_min: 1,
+        port_range_max: 65535},
+        {remote_ip_prefix: 0.0.0.0/0,
+        protocol: icmp}]
+
+  east_agent_port:
+    type: OS::Neutron::Port
+    properties:
+      network_id: { get_param: east_private_net }
+      fixed_ips:
+        - subnet_id: { get_param: east_private_subnet }
+          ip_address: { get_param: east_ip_address }
+      security_groups: [{ get_resource: server_security_group }]
+  west_agent_port:
+    type: OS::Neutron::Port
+    properties:
+      network_id: { get_param: west_private_net }
+      fixed_ips:
+        - subnet_id: { get_param: west_private_subnet }
+          ip_address: { get_param: west_ip_address }
+      security_groups: [{ get_resource: server_security_group }]
+
+  test_primary_0:
+    type: OS::Nova::Server
+    properties:
+      name: test_primary_0
+      image: { get_param: image }
+      flavor: { get_param: flavor }
+      key_name: test
+      networks:
+        - network: { get_param: net_id }
+        - port: { get_resource: east_agent_port }
+      user_data_format: RAW
+      user_data:
+        str_replace:
+          template: |
+            #!/bin/sh
+            sudo dhclient ens4
+            sudo ip r d default via 30.0.0.1
+            sudo ip r a 40.0.0.0/24 via 30.0.0.10 dev ens4
+            screen -dmS shaker-agent-screen shaker-agent --server-endpoint=$SERVER_ENDPOINT --agent-id=$AGENT_ID --agent-socket-recv-timeout 10 --agent-socket-send-timeout 10
+          params:
+            "$SERVER_ENDPOINT": { get_param: server_endpoint }
+            "$AGENT_ID": "test_primary_0"
+
+  test_minion_0:
+    type: OS::Nova::Server
+    properties:
+      name: test_minion_0
+      image: { get_param: image }
+      flavor: { get_param: flavor }
+      key_name: test
+      networks:
+        - network: { get_param: net_id }
+        - port: { get_resource: west_agent_port }
+      user_data_format: RAW
+      user_data:
+        str_replace:
+          template: |
+            #!/bin/sh
+            sudo dhclient ens4
+            sudo ip r d default via 40.0.0.1
+            sudo ip r a 30.0.0.0/24 via 40.0.0.10 dev ens4
+            screen -dmS shaker-agent-screen shaker-agent --server-endpoint=$SERVER_ENDPOINT --agent-id=$AGENT_ID --agent-socket-recv-timeout 10 --agent-socket-send-timeout 10
+          params:
+            "$SERVER_ENDPOINT": { get_param: server_endpoint }
+            "$AGENT_ID": "test_minion_0"
+
+outputs:
+  test_primary_0:
+    value: { get_attr: [ test_primary_0, instance_name ] }
+  test_minion_0:
+    value: { get_attr: [ test_minion_0, instance_name ] }
+  test_primary_0_ip:
+    value: { get_attr: [ test_primary_0, networks, east, 0 ] }
+  test_minion_0_ip:
+    value: { get_attr: [ test_minion_0, networks, west, 0 ] }
